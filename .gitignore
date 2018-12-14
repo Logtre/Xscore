@@ -1,6 +1,6 @@
 .*
 !.gitignore
-./data/org/*
-./data/other/*
-./data/out/*
+data/org/*
+data/other/*
+data/out/*
 
