@@ -14,9 +14,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 # 独自ライブラリ
-from file_io import FileIO
-from test_util import Test
-from draw_chart2 import DrawChart2
+from util.file_io import FileIO
+from util.test_util import Test
+from util.draw_chart2 import DrawChart2
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
@@ -256,4 +256,4 @@ class IndividualTest:
                 plt.show()
 
         # csvファイルに書き出し
-        self.file_io.export_csv_from_pandas(df, out_path)
+        self.file_io.export_csv_from_pandas(df, inifile.get('regression', 'ind_path'))

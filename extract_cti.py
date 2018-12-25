@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
 import csv
-from util import CountRecord
-from file_io import FileIO
+from util.util import CountRecord
+from util.file_io import FileIO
 
 class ExtractCti:
     def __init__(self, in_path, in_char, out_path, out_char):

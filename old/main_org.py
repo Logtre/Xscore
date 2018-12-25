@@ -44,7 +44,9 @@ ex_cust = ExtractCust(
                 inifile.get('cust', 'csv_in_char'),
                 inifile.get('cust', 'csv_out_path'),
                 inifile.get('general', 'char_type'),
-                inifile.get('cust', 'id_path'))
+                inifile.get('cust', 'id_path'),
+                inifile.get('cust', 'shop_path'),
+                inifile.get('cust', 'pref_path'))
 # --- reserve ---
 ex_reserve = ExtractReserve(
                 inifile.get('reserve', 'csv_in_path'),
@@ -95,6 +97,8 @@ concat = ConcatCsvs(
                 inifile.get('log', 'stay_time_path'),
                 inifile.get('log', 'pv_sum_path'),
                 inifile.get('log', 'session_path'),
+                inifile.get('cust', 'shop_path'),
+                inifile.get('cust', 'pref_path'),
                 inifile.get('general', 'char_type'))
 
 # csvの結合処理

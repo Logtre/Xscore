@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 
-from util import CountRecord
-from file_io import FileIO
+from util.util import CountRecord
+from util.file_io import FileIO
 
 class ExtractReserve:
     def __init__(self, in_path, in_char, out_path, out_char, reg_type_path):

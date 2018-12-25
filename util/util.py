@@ -164,7 +164,7 @@ class FindPrefectureCode:
         # 都道府県名がaddressに含まれる場合はprefecture_codeを返す
         for pref in self.p_data:
             if pref[1] in addr:
-                return pref[0]
+                return pref[1]
         # 都道府県名でヒットしない場合、市区町村コードで検索する
         else:
             return self.find_city(addr)
@@ -175,7 +175,7 @@ class FindPrefectureCode:
         # 市区町村名がaddressに含まれる場合はprefecture_codeを返す
         for city in self.c_data:
             if city[2] in addr:
-                return city[0]
+                return city[2]
         else:
             #print("other address is {}".format(addr))
             return 0
