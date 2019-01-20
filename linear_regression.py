@@ -11,6 +11,7 @@ import json
 
 # 独自ライブラリ
 #from util import PrincipleComponentAnalysis
+from util.util import Scaler
 from util.file_io import FileIO
 from util.drop_nan import DropNaN
 #from pca import PCAProcess
@@ -31,8 +32,9 @@ class LinRegression:
         #self.chart = DrawChart()
         self.test = Test()
         #self.individual = IndividualTest()
-        self.sc = StandardScaler()
-        self.ms = MinMaxScaler()
+        #self.sc = StandardScaler()
+        #self.ms = MinMaxScaler()
+        self.ss = Scaler()
         self.drop_na = DropNaN()
 
     def regression(self, in_path, out_path):
@@ -73,7 +75,7 @@ class LinRegression:
         # 欠損値をゼロうめ
         org_df = org_df.fillna(0)
 
-        # 目的変数Xと説明変数Y
+        # 目的変数Yと説明変数X
         Y = org_df['売上']
         #Y = org_df['スコア']
         #X = org_df.drop(['支払合計'],axis=1)
@@ -99,6 +101,7 @@ class LinRegression:
         X = X[X.columns.drop(list(org_df.filter(regex='町域_')))] # 結果にほとんど関係ないので削除
 
         # 標準化
+        std_X = self.ss.standard_scaler(X,axis=1,data_type='float')
         #std_Y = pd.DataFrame(self.sc.fit_transform(Y))
         #std_Y.columns = Y.columns
         #std_X = pd.DataFrame(self.sc.fit_transform(X))
@@ -112,7 +115,8 @@ class LinRegression:
         #self.file_io.export_csv_from_pandas(X, './data/out/X.csv')
 
         # トレーニングデータとテストデータに分割(30%)
-        X_train, X_test, Y_train, Y_test = self.test.make_train_test_data(X, Y, 0.3)
+        X_train, X_test, Y_train, Y_test = self.test.make_train_test_data(std_X, Y, 0.3)
+        #X_train, X_test, Y_train, Y_test = self.test.make_train_test_data(X, Y, 0.3)
         print(X_train.head())
         print("--- X_train's shape ---\n {}\n".format(X_train.shape))
         print(X_test.head())

@@ -6,10 +6,35 @@ import numpy as np
 import category_encoders as ce
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import scale
+
+class Scaler:
+    '''標準化・正規化処理を行うクラス'''
+    def __init__(self):
+        pass
+
+    def standard_scaler(self, df, **kwargs):
+        '''
+        * 概要
+        * 引数のDataFrameに対して、列ごとにaverage=0, mean=1の標準化を行なった上でDataFrameを返す
+        * ------------------------------------------------------------------------------
+        * Input
+        *   1. df                      標準化を行うDataFrame
+        *   2. kwargs["axis"]          0=行に対して標準化を行う
+        *                              1=列に対して標準化を行う
+        *   3. kwargs["data_type"]     標準化後のデータのデータ型
+        * Output
+        *   1. std_df                  DataFrame
+        * ------------------------------------------------------------------------------
+        '''
+        ss = scale(df,axis=kwargs['axis'])
+        # 標準化処理の返り値(numpy ndarray)を pandas dataframeに変換する
+        std_df = pd.DataFrame(data=df, index=df.index, columns=df.columns, dtype=kwargs['data_type'])
+        return std_df
 
 
 class ExtractColumns:
-
+    '''指定した列の抽出・削除処理を行うクラス'''
     def __init__(self):
         pass
 
@@ -32,8 +57,9 @@ class ExtractColumns:
             ex_col = ex_col.drop(col, axis=1)
         return ex_col
 
-class PrincipleComponentAnalysis:
 
+class PrincipleComponentAnalysis:
+    '''次元圧縮処理を行うクラス'''
     def __init__(self):
         pass
 
@@ -50,7 +76,7 @@ class PrincipleComponentAnalysis:
 
 
 class CategoryEncode:
-
+    '''分類データを特徴量データに変換するクラス'''
     def __init__(self):
         #self.enc = OneHotEncoder()
         pass
@@ -94,8 +120,9 @@ class CategoryEncode:
             name_list.append(column_name + '_空欄')
         return name_list
 
-class CountRecord:
 
+class CountRecord:
+    '''要素数（行数）をカウントするクラス'''
     def __init__(self):
         self.count = {}
 
@@ -127,6 +154,7 @@ class CountRecord:
 
 
 class Binning:
+    '''指定した列をグルーピング（ビニング）するクラス'''
     def __init__(self):
         pass
 
@@ -142,8 +170,9 @@ class Binning:
         ctgr_name = label_name
         return pd.qcut(df, q=quantity, labels=ctgr_name, duplicates='drop')
 
-class FindPrefectureCode:
 
+class FindPrefectureCode:
+    '''文字列の住所から都道府県コードに変換するクラス'''
     def __init__(self):
         self.p_data = []
         self.c_data = []
@@ -157,7 +186,6 @@ class FindPrefectureCode:
             c_reader = csv.reader(c_file)
             for row in c_reader:
                 self.c_data.append(row)
-
 
     def find_prefecture(self,addr):
         '''addressを都道府県名を鍵としてprefecture_codeに変換する'''
