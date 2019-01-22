@@ -61,13 +61,13 @@ class ExtractSales:
         # 個別商品IDに相当する列追加
         product_attr['明細ID'] = file['伝票コード'] * 10 + file['明細コード']
         # 不要な行を削除
-        #target_attr = product_attr[(product_attr['商品コード']=='1A1501')|(product_attr['商品コード']=='1B2201')|(product_attr['商品コード']=='1A1601')|(product_attr['商品コード']=='200071')|(product_attr['商品コード']=='200006')]
+        target_attr = product_attr[(product_attr['商品コード']=='1A1501')|(product_attr['商品コード']=='1B2201')|(product_attr['商品コード']=='1A1601')|(product_attr['商品コード']=='200071')|(product_attr['商品コード']=='200006')]
 
 
         # 書き出し処理
         self.file_io.export_csv_from_pandas(cust_payment, self.payment_path)
         self.file_io.export_csv_from_pandas(cust_attr, self.cust_attr_path)
-        #self.file_io.export_csv_from_pandas(target_attr, self.target_attr_path)
+        self.file_io.export_csv_from_pandas(target_attr, self.target_attr_path)
         self.file_io.export_csv_from_pandas(product_attr, self.average_attr_path)
 
 
