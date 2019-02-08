@@ -4,3 +4,4 @@ data/org/*
 data/other/*
 data/out/*
 data/result/*
+__pycache__/*
