@@ -7,11 +7,12 @@ import category_encoders as ce
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import scale
+from sklearn.preprocessing import StandardScaler
 
 class Scaler:
     '''標準化・正規化処理を行うクラス'''
     def __init__(self):
-        pass
+        self.sc = StandardScaler()
 
     def standard_scaler(self, df, **kwargs):
         '''
@@ -30,6 +31,12 @@ class Scaler:
         ss = scale(df,axis=kwargs['axis'])
         # 標準化処理の返り値(numpy ndarray)を pandas dataframeに変換する
         std_df = pd.DataFrame(data=df, index=df.index, columns=df.columns, dtype=kwargs['data_type'])
+        return std_df
+
+    def sl_standard_scaler(self, df, **kwargs):
+        ss = self.sc.fit_transform(df)
+        # 標準化処理の返り値(numpy ndarray)を pandas dataframeに変換する
+        std_df = pd.DataFrame(data=ss, index=df.index, columns=df.columns, dtype=kwargs['data_type'])
         return std_df
 
 
